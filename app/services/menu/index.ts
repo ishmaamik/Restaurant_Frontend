@@ -2,10 +2,11 @@
 export interface MenuItem {
     menuId?: number,
     name: string,
-    price: number,
+    price: string | number ,
     imageURL?: string,
     active: boolean,
-    category: string
+    category: string,
+    file?: File
 }
 
 export const getAllMenuItems = async (): Promise<MenuItem[]> => {

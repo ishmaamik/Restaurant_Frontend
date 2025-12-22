@@ -17,7 +17,7 @@ export default function Menu(){
     }, [])
 
     return(
-        <div className="gap-6 grid grid-cols-3">
+        <div className="gap-6 grid grid-cols-6">
             {
                 menuItems.map(item=> (
                     <div key={item.menuId}>
@@ -25,7 +25,6 @@ export default function Menu(){
                         <img width={100} src={item.imageURL || null} alt={item.name}/>
                         <p>{item.price}</p>
                         <p>{item.category}</p>
-                        <p>{item.imageURL}</p>
                     </div>
                 ))
             }
