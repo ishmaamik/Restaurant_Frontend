@@ -17,12 +17,12 @@ export default function Menu(){
     }, [])
 
     return(
-        <div className="flex gap-6">
+        <div className="gap-6 grid grid-cols-3">
             {
                 menuItems.map(item=> (
                     <div key={item.menuId}>
                         <p>{item.name}</p>
-                        <img width={100} src={item.imageURL} alt={item.name}/>
+                        <img width={100} src={item.imageURL || null} alt={item.name}/>
                         <p>{item.price}</p>
                         <p>{item.category}</p>
                         <p>{item.imageURL}</p>
