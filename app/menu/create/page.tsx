@@ -1,21 +1,33 @@
 "use client"
-import { createMenuItem, MenuItem } from "@/services/menu";
+import { createMenuItem, handleFileUpload, MenuItemFile } from "@/services/menu";
 import { useState } from "react";
 
 
 export default function createMenu() {
 
-    const [menu, setMenu] = useState<MenuItem>({
+    const [menu, setMenu] = useState<MenuItemFile>({
         name: '',
         imageURL: '',
-        price: '$' + 0.00,
+        price: '',
         category: '',
         active: true,
     })
 
     const handleCreateMenu = async () => {
         try {
-            await createMenuItem(menu)
+            let imageUrl= menu.imageURL;
+
+            if(menu.file){
+                imageUrl= await handleFileUpload(menu.file)
+            }
+            
+            await createMenuItem({
+                name: menu.name,
+                imageURL: imageUrl,
+                price: menu.price,
+                category: menu.category,
+                active: true,
+            })
         }
         catch (error) {
             console.log(error)
@@ -43,16 +55,11 @@ export default function createMenu() {
                     </label>
                 </div>
 
-                <div className="grid grid-rows-2 gap-3 justify-left items-left ">
+                <div className="grid grid-rows-1 gap-3 justify-left items-left ">
 
                     <span className=" grid grid-rows-2">
                         <label>Name</label>
                         <input type="text" className="rounded-xl h-10 w-90 bg-white focus:outline-none border border-gray-300 p-5" placeholder="e.g. Cheeseburger" value={menu.name} onChange={e => setMenu({ ...menu, name: e.target.value })} />
-                    </span>
-
-                    <span className=" grid grid-rows-2">
-                        <label>Image</label>
-                        <input width={10} type="text" className="rounded-xl h-10 w-90 bg-white focus:outline-none border border-gray-300 p-5" placeholder="imageURL" value={menu.imageURL} onChange={e => setMenu({ ...menu, imageURL: e.target.value })} />
                     </span>
 
                 </div>
@@ -60,12 +67,12 @@ export default function createMenu() {
                 <div className="grid grid-cols-2 justify-left items-left ">
                     <span className=" grid grid-rows-2">
                         <label>Price</label>
-                        <input width={10} type="number" className="rounded-xl h-10 w-60 bg-white focus:outline-none border border-gray-300 p-5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="$ 0.00" value={menu.price} onChange={e => setMenu({ ...menu, price: +e.target.value })} />
+                        <input width={10} type="number" className="rounded-xl h-10 w-60 bg-white focus:outline-none border border-gray-300 p-5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="Tk. 0.00" value={menu.price} onChange={e => setMenu({ ...menu, price: +e.target.value })} />
                     </span>
 
                     <span className=" grid grid-rows-2">
                         <label>Category</label>
-                        <input width={10} type="text" className="rounded-xl h-10 w-60 bg-white focus:outline-none border border-gray-300 p-5" placeholder="category" value={menu.category} onChange={e => setMenu({ ...menu, category: e.target.value })} />
+                        <input width={10} type="text" className="rounded-xl h-10 w-60 bg-white focus:outline-none border border-gray-300 p-5" placeholder="e.g. Main dish, Side dish" value={menu.category} onChange={e => setMenu({ ...menu, category: e.target.value })} />
                     </span>
                     
                     

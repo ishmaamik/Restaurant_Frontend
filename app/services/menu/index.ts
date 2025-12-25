@@ -3,9 +3,13 @@ export interface MenuItem {
     menuId?: number,
     name: string,
     price: string | number ,
-    imageURL?: string,
+    imageURL?: string
     active: boolean,
     category: string,
+    file?: File
+}
+
+export interface MenuItemFile extends MenuItem{
     file?: File
 }
 
@@ -24,3 +28,20 @@ export const createMenuItem= async (menu: MenuItem) =>{
         body: JSON.stringify(menu)
     })
 }
+
+export const handleFileUpload = async(file: File): Promise<string> =>{
+    const formData= new FormData();
+    formData.append('file', file)
+
+    const res= await fetch('http://localhost:8080/api/menus/upload-menu-image', {
+        method:'POST',
+        body: formData
+    })
+
+    if(!res.ok){
+        throw new Error('Uploading image failed')
+    }
+
+    const data= await res.json();
+    return data.url
+} 
