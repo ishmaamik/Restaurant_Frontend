@@ -21,7 +21,7 @@ export const getAllMenuItems = async (): Promise<MenuItem[]> => {
 
 export const createMenuItem= async (menu: MenuItem) =>{
     const res= await fetch('http://localhost:8080/api/menus', {
-        method:"POST",
+        method:'POST',
         headers:{
             'Content-type':'application/json'
         },
@@ -44,4 +44,21 @@ export const handleFileUpload = async(file: File): Promise<string> =>{
 
     const data= await res.json();
     return data.url
-} 
+}
+
+export const fetchCategories= async()=>{
+    try{
+        const res= await fetch('http://localhost:8080/api/menus/get-categories',{
+            method:'GET'
+        })
+        if(!res.ok){
+        throw new Error('Fetching categories failed')
+    }
+
+    const data= await res.json()
+    return data
+    }
+    catch(error){
+        console.log(error)
+    }
+}
