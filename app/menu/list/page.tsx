@@ -31,13 +31,13 @@ export default function Menu() {
                             whileInView={{opacity:1, x:0}}  //after animation ends, it will exactly be where it is intended in the classname
                             //animate={{opacity:1, x:0}} for animations above and below screens too
                             initial={{opacity:0, x: fromLeft ? -60 : 60}}
-                            viewport={{ once: true }}   //persists if appears once
+                            
                             key={item.menuId} 
                             className={`flex ${index % 2 == 0 ? `justify-start` : `justify-end`}`}
                         >
                             <div className={`${fromLeft ?  `pl-40` : 'pr-40'} relative p-4 w-100 bg-green-50 rounded-xl shadow`}>
                                 <p className='text-3xl'>{item.name}</p>
-                                <motion.img width={200} initial={{opacity:0, x: fromLeft ? -60 : 60}} whileInView={{opacity:1, x:0}} transition={{duration:2, ease:'easeIn'}} viewport={{ once: true }} src={item.imageURL || null} alt={item.name} className='absolute rounded-xl'/>
+                                <motion.img width={200} initial={{opacity:0, x: fromLeft ? -60 : 60}} whileInView={{opacity:1, x:0}} transition={{duration:2, ease:'easeIn'}} viewport={{ once: false }} src={item.imageURL || null} alt={item.name} className='absolute rounded-xl'/>
                                 <p className='text-xl pt-50'>{item.price}</p>
                                 <p>{item.category}</p>
                             </div>
