@@ -1,7 +1,7 @@
 "use client"
 import { createMenuItem, fetchCategories, handleFileUpload, MenuItemFile } from "@/services/menu";
 import { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 export interface Category {
     types: 'SHAKES' | 'SIDES' | 'DESSERTS' | 'BURGERS'
 }
@@ -53,7 +53,7 @@ export default function createMenu() {
     return (
         <div className="min-h-screen  flex justify-center items-center" style={{ backgroundImage: "url('/foodbg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} >
 
-            <div className=" rounded-xl  flex flex-col  gap-10 font-semibold bg-gray-100 w-160 h-160  shadow-2xl p-5  " >
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: "easeIn" }} className=" rounded-xl  flex flex-col  gap-10 font-semibold bg-gray-100 w-160 h-160  shadow-2xl p-5  " >
 
                 <div className="w-150 h-30 bg-blue-100 opacity-100 rounded-2xl flex justify-center items-center ">
 
@@ -111,7 +111,7 @@ export default function createMenu() {
                 </div>
 
                 <button onClick={handleCreateMenu} className="p-5 bg-purple-200 rounded-2xl">Submit</button>
-            </div>
+            </motion.div>
 
 
         </div>
